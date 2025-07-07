@@ -1,128 +1,95 @@
-# JuicySearch Clone
+# OnlyFans Link Scraper
 
-A modern OnlyFans search engine clone built with React, TypeScript, and Tailwind CSS. This project replicates the core functionality of JuicySearch, allowing users to search through OnlyFans creators by name with a beautiful, responsive interface.
+A Python script that automatically scrapes OnlyFans profile links from Reddit and Twitter, collecting up to 100 unique links.
 
 ## Features
 
-- 🔍 **Smart Search**: Search OnlyFans creators by name, username, or description
-- 🎯 **Advanced Filtering**: Filter by location, price, content type, and more
-- 💖 **Wishlist**: Save your favorite creators for later
-- 📱 **Responsive Design**: Works perfectly on desktop, tablet, and mobile
-- ⚡ **Fast Performance**: Built with Vite for lightning-fast development and builds
-- 🎨 **Modern UI**: Beautiful design with smooth animations and transitions
+- **Multi-source scraping**: Collects links from Reddit and Twitter
+- **Automatic deduplication**: Ensures no duplicate links
+- **Rate limiting**: Respects website rate limits to avoid being blocked
+- **Headless browser**: Uses Selenium with Chrome in headless mode
+- **Multiple output formats**: Saves results as both TXT and JSON files
+- **Link validation**: Cleans and validates OnlyFans URLs
 
-## Tech Stack
+## Requirements
 
-- **Frontend**: React 18 + TypeScript
-- **Styling**: Tailwind CSS
-- **Build Tool**: Vite
-- **Icons**: Lucide React
-- **Animations**: Framer Motion
-- **Routing**: React Router DOM
+- Python 3.7+
+- Chrome browser installed
+- Internet connection
 
-## Getting Started
+## Installation
 
-### Prerequisites
+1. **Clone or download this repository**
 
-- Node.js (version 16 or higher)
-- npm or yarn
+2. **Install Python dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### Installation
+3. **Ensure Chrome browser is installed** on your system
 
-1. Clone the repository:
+## Usage
+
+Simply run the script:
+
 ```bash
-git clone https://github.com/yourusername/JuicySearchClone.git
-cd JuicySearchClone
+python onlyfans_scraper.py
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+The script will:
+1. Scrape OnlyFans links from Reddit subreddits
+2. Scrape OnlyFans links from Twitter searches
+3. Clean and validate all found links
+4. Save results to `onlyfans_links.txt` and `onlyfans_links.json`
+5. Display a summary of found links
 
-3. Start the development server:
-```bash
-npm run dev
-```
+## Output Files
 
-4. Open your browser and navigate to `http://localhost:3000`
+- **`onlyfans_links.txt`**: Plain text file with one link per line
+- **`onlyfans_links.json`**: JSON file with links and metadata
 
-### Available Scripts
+## How It Works
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-- `npm run lint:fix` - Fix ESLint errors
+### Reddit Scraping
+- Searches through multiple NSFW subreddits
+- Uses Reddit's JSON API for efficient data extraction
+- Searches post titles, content, and URLs for OnlyFans links
 
-## Project Structure
+### Twitter Scraping
+- Uses Selenium WebDriver to navigate Twitter search
+- Searches for various OnlyFans-related keywords
+- Scrolls through results to load more content
 
-```
-src/
-├── components/          # Reusable UI components
-│   ├── Header.tsx      # Navigation header
-│   ├── SearchBar.tsx   # Search input component
-│   └── CreatorCard.tsx # Creator profile card
-├── pages/              # Page components
-│   ├── HomePage.tsx    # Landing page
-│   └── SearchResults.tsx # Search results page
-├── types/              # TypeScript type definitions
-│   └── index.ts        # Main type definitions
-├── App.tsx             # Main app component
-├── main.tsx            # App entry point
-└── index.css           # Global styles
-```
+### Link Processing
+- Extracts OnlyFans URLs using regex patterns
+- Removes duplicates and invalid links
+- Cleans URLs by removing query parameters
+- Validates that links point to valid OnlyFans profiles
 
-## Features in Detail
+## Configuration
 
-### Search Functionality
-- Real-time search through creator names, usernames, and descriptions
-- URL-based search state management
-- Responsive search interface with quick filters
+You can modify the following parameters in the script:
 
-### Creator Cards
-- Beautiful card layout with hover effects
-- Creator information display (name, username, price, location, followers, posts)
-- Favorite/wishlist functionality
-- Price badges (Free/Paid)
-- New creator indicators
+- `max_links`: Change the target number of links (default: 100)
+- `subreddits`: Add or remove subreddits to search
+- `search_queries`: Modify Twitter search terms
+- Rate limiting delays: Adjust sleep times between requests
 
-### Responsive Design
-- Mobile-first approach
-- Grid and list view modes
-- Adaptive layouts for different screen sizes
-- Touch-friendly interface
+## Notes
 
-## Customization
+- The script includes rate limiting to avoid being blocked by websites
+- Some websites may block automated access; the script handles these errors gracefully
+- Results may vary depending on current content availability
+- Always respect website terms of service and robots.txt files
 
-### Styling
-The project uses Tailwind CSS for styling. You can customize the design by modifying:
-- `tailwind.config.js` - Tailwind configuration
-- `src/index.css` - Global styles and custom components
-- Component-specific classes in each component
+## Troubleshooting
 
-### Adding New Features
-1. Create new components in the `src/components/` directory
-2. Add new pages in the `src/pages/` directory
-3. Update routing in `src/App.tsx`
-4. Add new types in `src/types/index.ts`
+**Chrome driver issues**: The script automatically downloads the appropriate Chrome driver version. If you encounter issues, ensure Chrome is installed and up to date.
 
-## Contributing
+**Rate limiting**: If you're getting blocked, increase the sleep times in the script.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+**No links found**: This can happen if websites change their structure or block automated access. Try running the script again later.
 
-## License
+## Legal Disclaimer
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Disclaimer
-
-This project is a clone/educational demonstration and is not affiliated with OnlyFans or JuicySearch. It uses mock data for demonstration purposes only.
-
-## Support
-
-If you have any questions or need help, please open an issue on GitHub.
+This tool is for educational purposes only. Users are responsible for complying with all applicable laws and website terms of service. The authors are not responsible for any misuse of this software. 
